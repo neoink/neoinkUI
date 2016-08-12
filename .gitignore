@@ -1,3 +1,4 @@
 /.idea
-/app.js
+/app.min.js
 /js/vendor
+/node_modules

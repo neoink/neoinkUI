@@ -1,7 +1,11 @@
-class TabModule
+class Tab
 {
+    /**
+     * Tab Module Constructor
+     * @param option {Object} => parameters
+     */
     constructor(option) {
-        if(!(this instanceof TabModule)) {
+        if(!(this instanceof Tab)) {
             throw new Error('TabModule : missing new argument for instance')
         }
         this.option = option;
@@ -20,12 +24,25 @@ class TabModule
         this.initialize();
     }
 
+    /**
+     * Set Item State
+     */
     setState() {
         this.state.item.DOM  = this.option.scope.querySelector('.tab__item--active');
         this.state.panel.DOM = this.option.scope.querySelector('.tab__panel--active');
     }
 
-    observer() {
+    /**
+     * Actions Handler
+     * @returns {{_onClick: (function(*))}}
+     */
+    actionHandler() {
+        /**
+         * OnClick action
+         * @param element {DOM} => DOM trigger
+         * @returns {boolean}
+         * @private
+         */
         const _onClick = (element) => {
 
             const link   = element.querySelector('a'),
@@ -59,6 +76,10 @@ class TabModule
         }
     }
 
+    /**
+     * Tab module animations
+     * @returns {{switchEffect: (function()), markerEffect: (function())}}
+     */
     animationHandler() {
 
         const switchEffect = () => {
@@ -89,7 +110,7 @@ class TabModule
             markerEffect : markerEffect
         }
     }
-
+    
     clickHandler() {
         const itemDOM    = this.state.item.all,
               itemLength = itemDOM.length;
@@ -98,7 +119,7 @@ class TabModule
             itemDOM[i].addEventListener('click', (event) => {
                 event.preventDefault();
                 this.state.item.ID = i;
-                this.observer()._onClick(itemDOM[i]);
+                this.actionHandler()._onClick(itemDOM[i]);
             });
         }
     }
@@ -120,4 +141,4 @@ class TabModule
     }
 }
 
-export default TabModule;
+export default Tab;

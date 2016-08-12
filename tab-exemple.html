@@ -43,6 +43,13 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.min.js"></script>
+    <script>
+        console.time('test');
+
+        nk('#tabs').tab();
+
+        console.timeEnd('test');
+    </script>
 </body>
 </html>

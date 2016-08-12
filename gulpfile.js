@@ -13,15 +13,15 @@ var browserify   = require('browserify'),
     path         = require('path');
 
 gulp.task('less', function () {
-    return gulp.src('./css/global.less')
+    return gulp.src('./less/global.less')
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./less'));
 });
 
 gulp.task('autoprefix', ['less'], function() {
-    return gulp.src('./css/global.css')
+    return gulp.src('./less/global.css')
         .pipe(autoprefixer({
             browsers: ['last 6 versions'],
             cascade: false
@@ -48,18 +48,18 @@ gulp.task('cssmin', ['concatCss'], function() {
 
 gulp.task('browserify', function () {
     return browserify({
-        entries: './index.js',
+        entries: './app.js',
         debug: true
     })
         .transform("babelify", {presets: ["es2015"]})
         .bundle()
-        .pipe(source('app.js'))
+        .pipe(source('app.min.js'))
         .pipe(buffer())
         .pipe(uglify())
         .pipe(gulp.dest('./'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./*.js','./js/*.js',], ['browserify']);
-    gulp.watch(['./css/*.less'], ['autoprefix']);
+    gulp.watch(['./app.js','./js/*.js'], ['browserify']);
+    gulp.watch(['./less/*.less'], ['autoprefix']);
 });

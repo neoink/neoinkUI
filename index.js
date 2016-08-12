@@ -1,5 +1,5 @@
 import jQuery from "./js/vendor/jquery.min.js";
-import TabModule from "./js/tab.es6";
+import TabModule from "./js/tab.js";
 
 window.jQuery = jQuery;
 

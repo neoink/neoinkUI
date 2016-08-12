@@ -48,7 +48,7 @@ gulp.task('cssmin', ['concatCss'], function() {
 
 gulp.task('browserify', function () {
     return browserify({
-        entries: './index.es6',
+        entries: './index.js',
         debug: true
     })
         .transform("babelify", {presets: ["es2015"]})
@@ -60,6 +60,6 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./*.es6','./js/*.es6'], ['browserify']);
+    gulp.watch(['./*.js','./js/*.js',], ['browserify']);
     gulp.watch(['./css/*.less'], ['autoprefix']);
 });

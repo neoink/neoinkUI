@@ -12,52 +12,52 @@ body {
     position: relative;
     display: block;
     overflow-x: hidden;
-}
-.tab__nav {
-    list-style: none;
-    padding: 0 0;
-    width: 100%;
-    white-space: nowrap;
-    background-color: #CCC;
-    margin-bottom: 10px;
-}
-.tab__item {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    padding: 7px 15px;
-    font-weight: 500;
-    cursor: pointer;
-    &--active {
-
-    }
-    &-link {
-        color: #3b3b3b;
-        text-decoration: none;
-    }
-    &-marker {
+    &__nav {
+        list-style: none;
+        padding: 0 0;
         width: 100%;
-        &__bar {
-            bottom: 0;
-            display: block;
-            height: 2px;
-            margin-top: -2px;
-            position: relative;
-            transition: left .8s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-            background-color: rgb(255, 64, 129);
+        white-space: nowrap;
+        background-color: #CCC;
+        margin-bottom: 10px;
+    }
+    &__item {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        padding: 7px 15px;
+        font-weight: 500;
+        cursor: pointer;
+        &--active {
+
+        }
+        &-link {
+            color: #3b3b3b;
+            text-decoration: none;
+        }
+        &-marker {
+            width: 100%;
+            &__bar {
+                bottom: 0;
+                display: block;
+                height: 2px;
+                margin-top: -2px;
+                position: relative;
+                transition: left .8s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+                background-color: rgb(255, 64, 129);
+            }
         }
     }
-}
-.tab__content {
-    width: 100%;
-    position: relative;
-    display: flex;
-}
-.tab__panel {
-    flex-shrink: 0;
-    overflow: auto;
-    width: 100%;
-    &--active {
+    &__content {
+        width: 100%;
+        position: relative;
+        display: flex;
+    }
+    &__panel {
+        flex-shrink: 0;
+        overflow: auto;
+        width: 100%;
+        &--active {
 
+        }
     }
 }

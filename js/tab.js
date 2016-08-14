@@ -1,14 +1,15 @@
+"use strict";
+
 class Tab
 {
     /**
      * Tab Module Constructor
-     * @param option {Object} => parameters
+     * @param scope {String} => DOM Selector
+     * @param parameter {Object} => module options
      */
-    constructor(option) {
-        if(!(this instanceof Tab)) {
-            throw new Error('TabModule : missing new argument for instance')
-        }
-        this.option = option;
+    constructor({scope, parameter}) {
+        this.scope  = scope;
+        this.option = parameter;
         this.state = {
             item  : {
                 all : null,
@@ -28,8 +29,8 @@ class Tab
      * Set Item State
      */
     setState() {
-        this.state.item.DOM  = this.option.scope.querySelector('.tab__item--active');
-        this.state.panel.DOM = this.option.scope.querySelector('.tab__panel--active');
+        this.state.item.DOM  = this.scope.querySelector('.tab__item--active');
+        this.state.panel.DOM = this.scope.querySelector('.tab__panel--active');
     }
 
     /**
@@ -39,11 +40,14 @@ class Tab
     actionHandler() {
         /**
          * OnClick action
-         * @param element {DOM} => DOM trigger
-         * @returns {boolean}
+         * @param element {Element} => DOM trigger
+         * @returns {*} => false if item has a statut active else undefined
          * @private
          */
         const _onClick = (element) => {
+            if(typeof this.option.onClick === 'function') {
+                this.option.onClick();
+            }
 
             const link   = element.querySelector('a'),
                   parent = link.parentNode,
@@ -60,8 +64,12 @@ class Tab
             jQuery(panel).addClass('tab__panel--active');
 
             this.setState();
-            this.animationHandler().switchEffect();
+            if(this.option.effect === "switch") {
+                this.animationHandler().switchEffect();
+            }
             this.animationHandler().markerEffect();
+
+            return undefined;
         };
 
         return {
@@ -99,7 +107,7 @@ class Tab
         const markerEffect = () => {
             const widthValue   = 100 / this.state.item.all.length,
                   leftValue = widthValue + (widthValue * (this.state.item.ID - 1)),
-                  markerBarDOM = this.option.scope.querySelector('.tab__item-marker__bar');
+                  markerBarDOM = this.scope.querySelector('.tab__item-marker__bar');
 
             markerBarDOM.style.width = widthValue + "%";
             markerBarDOM.style.left  = leftValue + "%";
@@ -110,7 +118,7 @@ class Tab
             markerEffect : markerEffect
         }
     }
-    
+
     clickHandler() {
         const itemDOM    = this.state.item.all,
               itemLength = itemDOM.length;
@@ -125,13 +133,13 @@ class Tab
     }
 
     initialize() {
-        this.option.scope = document.querySelector(this.option.scope);
-        if (this.option.scope === null) {
+        this.scope = document.querySelector(this.scope);
+        if (this.scope === null) {
             throw new Error('Tabmodule : DOM argument is not present');
         }
 
         this.setState();
-        this.state.item.all = this.option.scope.querySelectorAll('.tab__item');
+        this.state.item.all = this.scope.querySelectorAll('.tab__item');
         this.state.panel.parent = this.state.panel.DOM.parentNode;
         this.state.panel.parent.style.transform = "translate3d("+ (this.state.item.ID * 100 ) + "%, 0px, 0px)";
         this.insertWidth();

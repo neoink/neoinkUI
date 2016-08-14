@@ -11,17 +11,17 @@ window.jQuery = jQuery;
  * @param scope {String} => DOM selector
  * @returns {{tab: tab}}
  */
-const nk = function(scope) {
+let nk = function(scope) {
 
     /**
      * Initialize Tab Module
-     * @param option : {Object} => parameters
+     * @param parameter {Object} => parameters
      * @returns {Tab}
      */
-    function tab(option) {
+    function tab(parameter = {}) {
         return new Tab({
-            scope : scope,
-            option : option
+            scope     : scope,
+            parameter : parameter
         });
     }
 

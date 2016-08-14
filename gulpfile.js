@@ -1,5 +1,6 @@
 var browserify   = require('browserify'),
     babelify     = require('babelify'),
+    babel        = require('babel-core/register'),
     gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     clean        = require('gulp-clean'),
@@ -10,6 +11,9 @@ var browserify   = require('browserify'),
     cssmin       = require('gulp-cssmin'),
     source       = require('vinyl-source-stream'),
     buffer       = require('vinyl-buffer'),
+    mocha        = require('gulp-mocha'),
+    istanbul     = require('gulp-istanbul'),
+    isparta      = require('isparta'),
     path         = require('path');
 
 gulp.task('less', function () {
@@ -62,4 +66,24 @@ gulp.task('browserify', function () {
 gulp.task('watch', function () {
     gulp.watch(['./app.js','./js/*.js'], ['browserify']);
     gulp.watch(['./less/*.less'], ['autoprefix']);
+});
+
+gulp.task('pre-test', function () {
+    return gulp.src(['./js/*.js'])
+        .pipe(istanbul({
+            instrumenter: isparta.Instrumenter
+        }))
+        .pipe(istanbul.hookRequire());
+});
+
+gulp.task('test', ['pre-test'], function() {
+    return gulp.src(['test/*.js'])
+        .pipe(mocha({
+            compilers: {
+                js: babel
+            }
+        }))
+        .pipe(istanbul.writeReports())
+        // Enforce a coverage of at least 90%
+        .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });

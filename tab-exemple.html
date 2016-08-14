@@ -41,14 +41,18 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="app.min.js"></script>
     <script>
         console.time('test');
-
-        nk('#tabs').tab();
-
+        nk('#tabs').tab({
+            effect  : "switch",
+            onClick : function() {
+                console.log('click')
+            }
+        });
         console.timeEnd('test');
     </script>
 </body>

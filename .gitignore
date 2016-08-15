@@ -2,3 +2,4 @@
 /app.min.js
 /js/vendor
 /node_modules
+/coverage

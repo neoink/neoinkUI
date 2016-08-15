@@ -8,15 +8,14 @@ window.jQuery = jQuery;
 
 /**
  * Boostrap UI
- * @param scope {String} => DOM selector
- * @returns {{tab: tab}}
+ * @param {String} scope DOM selector
+ * @returns {{tab: tab}} functions of module
  */
-let nk = function(scope) {
-
+window.nk = function(scope) {
     /**
      * Initialize Tab Module
-     * @param parameter {Object} => parameters
-     * @returns {Tab}
+     * @param {Object} parameter module parameters
+     * @returns {Tab} instance of TabModule
      */
     function tab(parameter = {}) {
         return new Tab({
@@ -27,9 +26,6 @@ let nk = function(scope) {
 
     return {
         tab : tab
-    }
+    };
 
 };
-
-//__Export UI in global scope
-window.nk = nk;

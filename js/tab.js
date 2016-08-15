@@ -4,13 +4,13 @@ class Tab
 {
     /**
      * Tab Module Constructor
-     * @param scope {String} => DOM Selector
-     * @param parameter {Object} => module options
+     * @param {String} scope DOM Selector
+     * @param {Object} parameter module options
      */
     constructor({scope, parameter}) {
         this.scope  = scope;
         this.option = parameter;
-        this.state = {
+        this.state  = {
             item  : {
                 all : null,
                 DOM : null,
@@ -26,22 +26,25 @@ class Tab
     }
 
     /**
-     * Set Item State
+     * Set state item and panel
+     * @returns {undefined}
      */
     setState() {
         this.state.item.DOM  = this.scope.querySelector('.tab__item--active');
         this.state.panel.DOM = this.scope.querySelector('.tab__panel--active');
+
+        return undefined;
     }
 
     /**
      * Actions Handler
-     * @returns {{_onClick: (function(*))}}
+     * @returns {{_onClick: (function(*))}} handler exposed functions
      */
     actionHandler() {
         /**
          * OnClick action
-         * @param element {Element} => DOM trigger
-         * @returns {*} => false if item has a statut active else undefined
+         * @param {Element} element DOM trigger
+         * @returns {false | undefined} false if item has a statut active else undefined
          * @private
          */
         const _onClick = (element) => {
@@ -74,24 +77,29 @@ class Tab
 
         return {
             _onClick : _onClick
-        }
+        };
     }
 
+    /**
+     * Insert width inline-style on items
+     * @returns {undefined}
+     */
     insertWidth() {
         const widthValue = 100 / this.state.item.all.length;
         for(let i =0; i < this.state.item.all.length; i++) {
             this.state.item.all[i].style.width = widthValue + "%";
         }
+
+        return undefined;
     }
 
     /**
      * Tab module animations
-     * @returns {{switchEffect: (function()), markerEffect: (function())}}
+     * @returns {{switchEffect: (function()), markerEffect: (function())}} handler exposed functions
      */
     animationHandler() {
 
         const switchEffect = () => {
-
             jQuery(this.state.panel.parent).animate({
                 value : this.state.item.ID * 100
             }, {
@@ -101,7 +109,7 @@ class Tab
                 duration: 500,
                 easing: 'linear',
                 queue: false
-            }, 'linear')
+            }, 'linear');
         };
 
         const markerEffect = () => {
@@ -116,7 +124,7 @@ class Tab
         return {
             switchEffect : switchEffect,
             markerEffect : markerEffect
-        }
+        };
     }
 
     clickHandler() {

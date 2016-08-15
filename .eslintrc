@@ -1,0 +1,53 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "globals":{
+    "jQuery": true,
+    "$": false
+  },
+  "rules": {
+    //__Stylistic
+      "semi" : ["error"],
+    //__Possible Error
+      "no-console" : ["error"],
+      "no-new": ["error"],
+      "valid-jsdoc": ["error"],
+      "no-dupe-args": ["error"],
+      "no-dupe-keys": ["error"],
+      "no-extra-semi": ["error"],
+      "no-obj-calls": ["error"],
+      "no-func-assign": ["error"],
+      "no-prototype-builtins": ["error"],
+      "no-unreachable": ["error"],
+      "valid-typeof": ["error"],
+    //__Best practice
+      "eqeqeq" : ["error", "always"],
+      "curly" : ["error"],
+      "consistent-return": ["error"],
+      "dot-notation": ["error"],
+      "accessor-pairs": ["error"],
+      "no-self-assign": ["error"],
+      "no-else-return": ["error"],
+      "no-unused-labels": ["error"],
+      "no-multi-str": ["error"],
+      "no-extra-bind": ["error"],
+      "no-implied-eval": ["error"],
+      "no-redeclare": ["error"],
+      "no-throw-literal": ["error"],
+      "wrap-iife": ["error", "any"],
+      "no-param-reassign": ["error", { "props": false }],
+    //__ES6
+      "arrow-body-style" : ["error", "always"],
+      "no-invalid-this": ["error"],
+      "no-loop-func": ["error"],
+      "no-empty-function": ["error"],
+      "no-duplicate-imports": ["error"],
+      "no-useless-concat": ["error"],
+      "prefer-const": ["error"]
+  }
+}
